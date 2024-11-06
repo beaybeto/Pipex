@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 20:11:55 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/06 20:14:08 by bruiz-ro         ###   ########.fr       */
+/*   Created: 2024/05/13 12:05:19 by bruiz-ro          #+#    #+#             */
+/*   Updated: 2024/05/17 12:07:34 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+# include <unistd.h>
+# include <stdarg.h>
 
-#ifndef BUFFER_SIZE
-#define BUFFERSIZE 500
+int	ft_putchar(char c);
+int	ft_putstr(char *str);
+int	ft_putnbr(int n);
+int	ft_print_unsigned_decimal(unsigned int n);
+int	ft_print_hexadecimal_lower(unsigned int n);
+int	ft_print_hexadecimal_upper(unsigned int n);
+int	ft_print_direction(void *str);
+int	ft_printf(char const *format, ...);
+
 #endif
