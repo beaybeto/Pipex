@@ -6,16 +6,11 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:31:39 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/12 20:56:36 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/14 21:13:33 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
-
-void	ft_exec(char *argv[], char **envp)
-{
-	
-}
 
 void	child_process(char *argv[], int *fd, char **envp)
 {
@@ -34,6 +29,25 @@ void	child_process(char *argv[], int *fd, char **envp)
 	ft_exec (argv[2], envp);
 }
 
+void	parent_process(char *argv[], int *fd, char **envp)
+{
+	int	outfile;
+	int	status;
+
+	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (outfile == -1)
+	{
+		perror ("error opening outfile");
+		exit (1);
+	}
+	waitpid(-1, &status, 0);
+	dup2(fd[0], STDIN_FILENO);
+	dup2(outfile, STDOUT_FILENO);
+	close (fd[1]);
+	close (outfile);
+	ft_exec(argv[3], envp);
+}
+
 int	main(int argc, char*argv[], char**envp)
 {
 	int		fd[2];
@@ -41,7 +55,7 @@ int	main(int argc, char*argv[], char**envp)
 
 	if (argc != 5)
 	{
-		ft_pustr_fd("command must be as follows: ./pipex infile cmd1 cmd2 outfile\n", 2);
+		ft_endl_fd("command must be like: ./pipex infile cmd1 cmd2 outfile", 2);
 		exit (1);
 	}
 	if (pipe(fd) == -1)
