@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 20:46:13 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/14 21:15:45 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/18 20:10:55 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,19 @@ char	*get_path(char *cmd, char **envp)
 	return (cmd);
 }
 
-void	ft_exec(char *argv[], char **envp)
+void	ft_exec(char *command, char **envp)
 {
-	
+	char	**commands;
+	char	*path;
+
+	commands = ft_split(command, ' ');
+	path = get_path(commands[0], envp);
+	if (execve(path, commands, envp) == -1)
+	{
+		ft_printf("command not found %s\n", command[0]);
+		perror("Error");
+		ft_free(commands);
+		free(path);
+		exit(1);
+	}
 }
