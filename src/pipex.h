@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 20:11:55 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/18 20:33:23 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:19:55 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 
 void	ft_free(char **str);
+int		ft_strcmp(char *s1, char *s2);
 char	*get_envp(char *name, char **envp);
 char	*get_path(char *cmd, char **envp);
 void	ft_exec(char *command, char **envp);

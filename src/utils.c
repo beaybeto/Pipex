@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 20:46:13 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/18 20:10:55 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:48:29 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,22 @@ void	ft_free(char **str)
 		i++;
 	}
 	free(str);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] != '\0' || s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+		{
+			return (s1[i] - s2[i]);
+		}
+		i++;
+	}
+	return (0);
 }
 
 char	*get_envp(char *name, char **envp)

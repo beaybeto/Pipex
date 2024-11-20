@@ -6,7 +6,7 @@
 #    By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/05 20:07:36 by bruiz-ro          #+#    #+#              #
-#    Updated: 2024/11/06 20:05:28 by bruiz-ro         ###   ########.fr        #
+#    Updated: 2024/11/20 20:44:56 by bruiz-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,10 @@ PRINTF_DIR = ft_printf
 PRINTF_LIB = $(PRINTF_DIR)/libftprintf.a
 SRC_DIR = src
 OBJ_DIR = obj
-INCLUDE_DIR = include
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE_DIR) -I$(PRINTF_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(SRC_DIR) -I$(PRINTF_DIR)
 
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+SRCS = $(SRC_DIR)/pipex.c $(SRC_DIR)/utils.c
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 all : $(LIBFT_LIB) $(PRINTF_LIB) $(NAME)

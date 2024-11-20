@@ -6,11 +6,11 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:31:39 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/14 21:13:33 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:20:17 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "pipex.h"
 
 void	child_process(char *argv[], int *fd, char **envp)
 {
@@ -55,7 +55,7 @@ int	main(int argc, char*argv[], char**envp)
 
 	if (argc != 5)
 	{
-		ft_endl_fd("command must be like: ./pipex infile cmd1 cmd2 outfile", 2);
+		ft_putendl_fd("command must be: ./pipex infile cmd1 cmd2 outfile", 2);
 		exit (1);
 	}
 	if (pipe(fd) == -1)
