@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:31:39 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/20 21:20:17 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:07:34 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	child_process(char *argv[], int *fd, char **envp)
 	infile = open(argv[1], O_RDONLY);
 	if (infile == -1)
 	{
-		perror("error opening infile");
+		perror("Error opening infile");
 		exit(1);
 	}
 	dup2 (infile, STDIN_FILENO);
@@ -37,7 +37,7 @@ void	parent_process(char *argv[], int *fd, char **envp)
 	outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (outfile == -1)
 	{
-		perror ("error opening outfile");
+		perror ("Error opening outfile");
 		exit (1);
 	}
 	waitpid(-1, &status, 0);
@@ -55,12 +55,13 @@ int	main(int argc, char*argv[], char**envp)
 
 	if (argc != 5)
 	{
-		ft_putendl_fd("command must be: ./pipex infile cmd1 cmd2 outfile", 2);
+		ft_putendl_fd("Error! Command should be like: "
+			"./pipex infile cmd1 cmd2 outfile", 2);
 		exit (1);
 	}
 	if (pipe(fd) == -1)
 	{
-		perror("error creating the pipe");
+		perror("Error creating the pipe");
 		exit(1);
 	}
 	parent = fork();
@@ -70,7 +71,7 @@ int	main(int argc, char*argv[], char**envp)
 		parent_process(argv, fd, envp);
 	else
 	{
-		perror("error al hacer el fork");
+		perror("Error al hacer el fork");
 		exit(1);
 	}
 	return (0);

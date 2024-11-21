@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:26:03 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/05/09 15:49:23 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:55:16 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	**ft_split(char const *s, char c)
 
 	i = 0;
 	new_string = (char **)malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
-	if (!new_string | !s)
-		return (0);
+	if (!new_string || !s)
+		return NULL;
 	while (*s)
 	{
 		if (*s != c)

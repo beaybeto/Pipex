@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 20:46:13 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/20 20:48:29 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:20:24 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_exec(char *command, char **envp)
 	path = get_path(commands[0], envp);
 	if (execve(path, commands, envp) == -1)
 	{
-		ft_printf("command not found %s\n", command[0]);
+		ft_printf("Command not found %s\n", command[0]);
 		perror("Error");
 		ft_free(commands);
 		free(path);

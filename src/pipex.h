@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 20:11:55 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/20 21:19:55 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/21 20:19:06 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 # include "../libft/libft.h"
 # include "../ft_printf/ft_printf.h"
 # include <stdio.h>
+//for execve, fork functions
 # include <unistd.h>
-# include <string.h>
+//for free function and NULL
 # include <stdlib.h>
+//for open function
 # include <fcntl.h>
 //to define pid_t
 # include <sys/types.h>
