@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:26:03 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/21 20:55:16 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:07:53 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static size_t	ft_count_words(const char *str, char c)
 
 	i = 0;
 	count = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\0')
 	{
 		if (str[i] != c)
@@ -38,6 +40,8 @@ static void	free_split(char **split)
 	size_t	i;
 
 	i = 0;
+	if (!split)
+		return;
 	while (split[i])
 		free(split[i++]);
 	free(split);
@@ -50,9 +54,11 @@ char	**ft_split(char const *s, char c)
 	size_t	len;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	new_string = (char **)malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
-	if (!new_string || !s)
-		return NULL;
+	if (!new_string)
+		return (NULL);
 	while (*s)
 	{
 		if (*s != c)
@@ -67,6 +73,5 @@ char	**ft_split(char const *s, char c)
 		else
 			++s;
 	}
-	new_string[i] = 0;
-	return (new_string);
+	return (new_string[i] = 0, new_string);
 }

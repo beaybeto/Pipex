@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 20:46:13 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/21 20:20:24 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:28:29 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_free(char **str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i])
 	{
 		free(str[i]);
@@ -82,12 +84,15 @@ char	*get_path(char *cmd, char **envp)
 		command_path = ft_strjoin(current_path, commands[0]);
 		free(current_path);
 		if (access (command_path, F_OK | X_OK) == 0)
+		{
+			ft_free(all_paths);
 			return (ft_free(commands), command_path);
+		}
 		free(command_path);
 	}
 	ft_free(all_paths);
 	ft_free(commands);
-	return (cmd);
+	return (NULL);
 }
 
 void	ft_exec(char *command, char **envp)
@@ -95,8 +100,17 @@ void	ft_exec(char *command, char **envp)
 	char	**commands;
 	char	*path;
 
+	if (!command | !envp)
+		return ;
 	commands = ft_split(command, ' ');
+	if (!commands)
+		return ;
 	path = get_path(commands[0], envp);
+	if (!path)
+	{
+		ft_free(commands);
+		return ;
+	}
 	if (execve(path, commands, envp) == -1)
 	{
 		ft_printf("Command not found %s\n", command[0]);
@@ -105,4 +119,6 @@ void	ft_exec(char *command, char **envp)
 		free(path);
 		exit(1);
 	}
+	ft_free(commands);
+	free(path);
 }
