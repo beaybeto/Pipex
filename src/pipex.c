@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:31:39 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/21 20:07:34 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/26 14:08:41 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char*argv[], char**envp)
 		parent_process(argv, fd, envp);
 	else
 	{
-		perror("Error al hacer el fork");
+		perror("Error when making fork");
 		exit(1);
 	}
 	return (0);

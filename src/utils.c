@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 20:46:13 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/25 17:28:29 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:59:17 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ char	*get_path(char *cmd, char **envp)
 
 	all_paths = ft_split(get_envp("PATH", envp), ':');
 	commands = ft_split(cmd, ' ');
-	i = -1;
-	while (all_paths[i++])
+	i = 0;
+	while (all_paths[i])
 	{
 		current_path = ft_strjoin(all_paths[i], "/");
 		command_path = ft_strjoin(current_path, commands[0]);
@@ -89,6 +89,7 @@ char	*get_path(char *cmd, char **envp)
 			return (ft_free(commands), command_path);
 		}
 		free(command_path);
+		i++;
 	}
 	ft_free(all_paths);
 	ft_free(commands);

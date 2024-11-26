@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:26:03 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/25 17:07:53 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/26 14:11:01 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	free_split(char **split)
 
 	i = 0;
 	if (!split)
-		return;
+		return ;
 	while (split[i])
 		free(split[i++]);
 	free(split);
