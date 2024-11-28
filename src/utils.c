@@ -6,42 +6,11 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 20:46:13 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/26 13:59:17 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:11:17 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-void	ft_free(char **str)
-{
-	size_t	i;
-
-	i = 0;
-	if (!str)
-		return ;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] != '\0' || s2[i] != '\0')
-	{
-		if (s1[i] != s2[i])
-		{
-			return (s1[i] - s2[i]);
-		}
-		i++;
-	}
-	return (0);
-}
 
 char	*get_envp(char *name, char **envp)
 {
@@ -67,18 +36,24 @@ char	*get_envp(char *name, char **envp)
 	return (NULL);
 }
 
-char	*get_path(char *cmd, char **envp)
+int	protection(char **all_paths, char **commands)
+{
+	if (!commands || !commands[0])
+	{
+		ft_free(all_paths);
+		return (1);
+	}
+	return (0);
+}
+
+char	*find_path(char **all_paths, char **commands)
 {
 	int		i;
-	char	**commands;
-	char	**all_paths;
-	char	*command_path;
 	char	*current_path;
+	char	*command_path;
 
-	all_paths = ft_split(get_envp("PATH", envp), ':');
-	commands = ft_split(cmd, ' ');
-	i = 0;
-	while (all_paths[i])
+	i = -1;
+	while (all_paths[++i])
 	{
 		current_path = ft_strjoin(all_paths[i], "/");
 		command_path = ft_strjoin(current_path, commands[0]);
@@ -86,13 +61,34 @@ char	*get_path(char *cmd, char **envp)
 		if (access (command_path, F_OK | X_OK) == 0)
 		{
 			ft_free(all_paths);
-			return (ft_free(commands), command_path);
+			ft_free(commands);
+			return (command_path);
 		}
 		free(command_path);
-		i++;
 	}
 	ft_free(all_paths);
 	ft_free(commands);
+	return (NULL);
+}
+
+char	*get_path(char *cmd, char **envp)
+{
+	char	**commands;
+	char	**all_paths;
+	char	*command_path;
+
+	all_paths = ft_split(get_envp("PATH", envp), ':');
+	commands = ft_split(cmd, ' ');
+	if (protection (all_paths, commands) == 1)
+		return (NULL);
+	if (access (cmd, F_OK | X_OK) == 0)
+	{
+		ft_free(all_paths);
+		return (ft_free(commands), cmd);
+	}
+	command_path = find_path(all_paths, commands);
+	if (command_path != NULL)
+		return (command_path);
 	return (NULL);
 }
 
@@ -109,16 +105,16 @@ void	ft_exec(char *command, char **envp)
 	path = get_path(commands[0], envp);
 	if (!path)
 	{
+		write (2, "path not found", 14);
 		ft_free(commands);
-		return ;
+		exit (127);
 	}
 	if (execve(path, commands, envp) == -1)
 	{
-		ft_printf("Command not found %s\n", command[0]);
-		perror("Error");
+		perror("execve");
 		ft_free(commands);
 		free(path);
-		exit(1);
+		exit(127);
 	}
 	ft_free(commands);
 	free(path);

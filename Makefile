@@ -6,7 +6,7 @@
 #    By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/05 20:07:36 by bruiz-ro          #+#    #+#              #
-#    Updated: 2024/11/26 14:10:34 by bruiz-ro         ###   ########.fr        #
+#    Updated: 2024/11/28 17:21:18 by bruiz-ro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ PRINTF_LIB = $(PRINTF_DIR)/libftprintf.a
 SRC_DIR = src
 OBJ_DIR = obj
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -I$(SRC_DIR) -I$(PRINTF_DIR) -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror -I$(SRC_DIR) -I$(PRINTF_DIR) #-fsanitize=address
 
-SRCS = $(SRC_DIR)/pipex.c $(SRC_DIR)/utils.c
+SRCS = $(SRC_DIR)/pipex.c $(SRC_DIR)/utils.c $(SRC_DIR)/utils2.c
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 all : $(LIBFT_LIB) $(PRINTF_LIB) $(NAME)

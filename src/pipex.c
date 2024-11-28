@@ -6,7 +6,7 @@
 /*   By: bruiz-ro <bruiz-ro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:31:39 by bruiz-ro          #+#    #+#             */
-/*   Updated: 2024/11/26 14:08:41 by bruiz-ro         ###   ########.fr       */
+/*   Updated: 2024/11/28 19:09:19 by bruiz-ro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	parent_process(char *argv[], int *fd, char **envp)
 		perror ("Error opening outfile");
 		exit (1);
 	}
-	waitpid(-1, &status, 0);
+	waitpid(-1, &status, WNOHANG);
 	dup2(fd[0], STDIN_FILENO);
 	dup2(outfile, STDOUT_FILENO);
 	close (fd[1]);
@@ -53,10 +53,11 @@ int	main(int argc, char*argv[], char**envp)
 	int		fd[2];
 	pid_t	parent;
 
+	if (envp[0] == NULL)
+		return (1);
 	if (argc != 5)
 	{
-		ft_putendl_fd("Error! Command should be like: "
-			"./pipex infile cmd1 cmd2 outfile", 2);
+		ft_putendl_fd("Error! Commands not valid", 2);
 		exit (1);
 	}
 	if (pipe(fd) == -1)
@@ -67,12 +68,11 @@ int	main(int argc, char*argv[], char**envp)
 	parent = fork();
 	if (parent == 0)
 		child_process(argv, fd, envp);
-	if (parent > 0)
-		parent_process(argv, fd, envp);
-	else
+	if (parent < 0)
 	{
 		perror("Error when making fork");
 		exit(1);
 	}
+	parent_process(argv, fd, envp);
 	return (0);
 }
